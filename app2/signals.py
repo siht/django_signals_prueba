@@ -13,7 +13,7 @@ def insert_b_object(sender, object_dict, **kwargs):
     if not b_objects.count():
         a_objects = A.objects.filter(id=object_dict.get('a_id'))
         if not a_objects.count():
-            preparing_a.send({'id': object_dict.get('a_id')})
+            preparing_a.send(object_dict={'id': object_dict.get('a_id')}, sender='insert_b_object')
 
 @receiver(preparing_a)
 def insert_a_object(sender, object_dict, **kwargs):

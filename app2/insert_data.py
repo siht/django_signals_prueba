@@ -5,7 +5,7 @@ from app1 import models as models1
 
 def main():
     dict_b_origen = models1.B.objects.values('id', 'nombre', 'a').first()
-    preparing_b.send(object_dict=dict_b_origen)
+    preparing_b.send(object_dict=dict_b_origen, sender='main')
     b_objects = models2.B.objects.filter(id=dict_b_origen.get('id'))
     if not b_objects:
         form = forms.BForm(dict_b_origen)
