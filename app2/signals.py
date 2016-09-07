@@ -9,11 +9,13 @@ preparing_a = dispatch.Signal(providing_args=['object_dict'])
 
 @receiver(preparing_b)
 def insert_b_object(sender, object_dict, **kwargs):
+    print '<<<<<<<<<<<<<<'
     b_objects = B.objects.filter(id=object_dict.get('id'))
+    print b_objects
     if not b_objects.count():
-        a_objects = A.objects.filter(id=object_dict.get('a_id'))
+        a_objects = A.objects.filter(id=object_dict.get('a'))
         if not a_objects.count():
-            preparing_a.send(object_dict={'id': object_dict.get('a_id')}, sender='insert_b_object')
+            preparing_a.send(object_dict={'id': object_dict.get('a')}, sender='insert_b_object')
 
 @receiver(preparing_a)
 def insert_a_object(sender, object_dict, **kwargs):
